@@ -6,15 +6,19 @@ import {
   ScrollView,
   TextInput,
 } from "react-native";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Feather, FontAwesome6, Ionicons } from "@expo/vector-icons";
 import { theme } from "../../constants/theme";
 import { hp, wp } from "../../helpers/common";
+import Categories from "../../components/categories";
 
 const HomeScreen = () => {
   const { top } = useSafeAreaInsets();
   const paddingTop = top > 0 ? top + 10 : 30;
+  const [search, setSearch] = useState("");
+  const searchInputRef = useRef(null);
+
   return (
     <View style={[styles.container, { paddingTop }]}>
       <View style={styles.header}>
@@ -41,14 +45,22 @@ const HomeScreen = () => {
           <TextInput
             placeholder="Search for photos"
             style={styles.searchInput}
+            value={search}
+            onChangeText={(value) => setSearch(value)}
+            ref={searchInputRef}
           />
-          <Pressable style={styles.closeIcon}>
-            <Ionicons
-              name="close"
-              size={24}
-              color={theme.colors.neutral(0.6)}
-            />
-          </Pressable>
+          {search && (
+            <Pressable style={styles.closeIcon}>
+              <Ionicons
+                name="close"
+                size={24}
+                color={theme.colors.neutral(0.6)}
+              />
+            </Pressable>
+          )}
+        </View>
+        <View style={styles.categories}>
+          <Categories />
         </View>
       </ScrollView>
     </View>
