@@ -18,6 +18,11 @@ const HomeScreen = () => {
   const paddingTop = top > 0 ? top + 10 : 30;
   const [search, setSearch] = useState("");
   const searchInputRef = useRef(null);
+  const [activeCategory, setActiveCategory] = useState(null);
+
+  const handleChangeCategory = (cat) => {
+    setActiveCategory(cat);
+  };
 
   return (
     <View style={[styles.container, { paddingTop }]}>
@@ -60,7 +65,10 @@ const HomeScreen = () => {
           )}
         </View>
         <View style={styles.categories}>
-          <Categories />
+          <Categories
+            activeCategory={activeCategory}
+            handleChangeCategory={handleChangeCategory}
+          />
         </View>
       </ScrollView>
     </View>
