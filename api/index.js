@@ -19,6 +19,8 @@ const formatUrl = (params) => {
 export const apiCall = async (params) => {
   try {
     const response = await axios.get(formatUrl(params));
+    const { data } = response;
+    return { success: true, data };
   } catch (err) {
     console.log("got error", err.message);
     return { success: false, msg: err.message };
